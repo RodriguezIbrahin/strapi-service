@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "open_ais",
+  "info": {
+    "singularName": "open-ai",
+    "pluralName": "open-ais",
+    "displayName": "OpenAi",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "proyecto": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "schema": {
+      "type": "json"
+    },
+    "prompt": {
+      "type": "text"
+    }
+  }
+}
