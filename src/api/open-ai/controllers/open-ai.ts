@@ -15,6 +15,8 @@ export default factories.createCoreController(
     async generateData(ctx) {
       try {
         const { projectId } = ctx.params;
+        const { data } = ctx.request.body || {}; // 👈 extra desde body
+
         const entity = await strapi.entityService.findMany(
           "api::open-ai.open-ai",
           {
@@ -25,34 +27,65 @@ export default factories.createCoreController(
         );
 
         if (!entity?.[0]) {
-          ctx.send({ error: "Failed to contact OpenAI" }, 500);
+          ctx.send({ error: "No existe el proyecto" }, 500);
+          return;
         }
+
         const rawSchema: any = entity?.[0]?.schema;
-        const properties = {};
-        const required = [];
 
-        for (const key in rawSchema) {
-          const type = rawSchema[key];
-          properties[key] = { type };
-          required.push(key);
+        // 🔧 Función recursiva para generar JSON Schema desde rawSchema anidado
+        function buildJsonSchemaFromRaw(raw: any): any {
+          const build = (node: any): any => {
+            if (typeof node === "string") {
+              return { type: node.toLowerCase() };
+            }
+
+            if (Array.isArray(node)) {
+              return {
+                type: "array",
+                items: build(node[0]),
+              };
+            }
+
+            if (typeof node === "object") {
+              const props: Record<string, any> = {};
+              const req: string[] = [];
+
+              for (const key in node) {
+                props[key] = build(node[key]);
+                req.push(key);
+              }
+
+              return {
+                type: "object",
+                properties: props,
+                required: req,
+                additionalProperties: false,
+              };
+            }
+
+            throw new Error("Unsupported schema type");
+          };
+
+          return build(raw);
         }
 
+        // 🧱 Construir el schema final con propiedad raíz 'autos'
         const schema = {
           type: "object",
           properties: {
             autos: {
               type: "array",
-              items: {
-                type: "object",
-                properties,
-                required,
-                additionalProperties: false,
-              },
+              items: buildJsonSchemaFromRaw(rawSchema),
             },
           },
           required: ["autos"],
           additionalProperties: false,
         };
+
+        const fullPrompt = data
+          ? `${entity?.[0]?.prompt}\n\n Datos extras:\n${JSON.stringify(data)}`
+          : entity?.[0]?.prompt;
 
         const response = await openai.chat.completions.create({
           model: "gpt-4o",
@@ -60,16 +93,19 @@ export default factories.createCoreController(
             {
               role: "system",
               content:
-                "Eres un asistente virtual, que se limita a responder con las estructura definida",
+                "Eres un asistente virtual, que se limita a responder con la estructura definida.",
             },
-            { role: "user", content: entity?.[0]?.prompt },
+            {
+              role: "user",
+              content: fullPrompt.trim(),
+            },
           ],
           response_format: {
             type: "json_schema",
             json_schema: {
               name: `schema_${projectId}`,
               description: `A structured object with company data ${projectId}`,
-              schema: schema,
+              schema,
               strict: true,
             },
           },
@@ -79,7 +115,7 @@ export default factories.createCoreController(
         ctx.send(parsed);
       } catch (err) {
         strapi.log.error("OpenAI error:", err);
-        ctx.send({ error: "Failed to contact OpenAI" }, 500);
+        ctx.send({ error: err.message }, 500);
       }
     },
   })
