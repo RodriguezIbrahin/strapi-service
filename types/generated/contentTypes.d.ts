@@ -423,9 +423,7 @@ export interface ApiOpenAiOpenAi extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     prompt: Schema.Attribute.Text;
-    proyecto: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    proyecto: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     schema: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;

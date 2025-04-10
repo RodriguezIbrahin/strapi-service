@@ -11,16 +11,14 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "proyecto": {
-      "type": "integer",
-      "required": true,
-      "unique": true
-    },
     "schema": {
       "type": "json"
     },
     "prompt": {
       "type": "text"
+    },
+    "proyecto": {
+      "type": "string"
     }
   }
 }
