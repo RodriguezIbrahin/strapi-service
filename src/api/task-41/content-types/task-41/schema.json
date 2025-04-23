@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "task_41s",
+  "info": {
+    "singularName": "task-41",
+    "pluralName": "task-41s",
+    "displayName": "task-41",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "specs": {
+      "type": "string"
+    },
+    "time": {
+      "type": "biginteger"
+    },
+    "starts_at": {
+      "type": "date"
+    },
+    "finish_at": {
+      "type": "date"
+    },
+    "section": {
+      "displayName": "section",
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.section"
+    }
+  }
+}

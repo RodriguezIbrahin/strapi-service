@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "member_41s",
+  "info": {
+    "singularName": "member-41",
+    "pluralName": "member-41s",
+    "displayName": "Member 41",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "role": {
+      "type": "enumeration",
+      "enum": [
+        "colaborador",
+        "editor"
+      ]
+    },
+    "team_41_": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team-41.team-41",
+      "inversedBy": "member_41s"
+    }
+  }
+}

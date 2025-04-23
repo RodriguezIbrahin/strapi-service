@@ -98,6 +98,12 @@
     "rol": {
       "type": "string",
       "default": "user"
+    },
+    "equipo_proyecto_58": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::equipo58.equipo58",
+      "inversedBy": "miembros"
     }
   }
 }

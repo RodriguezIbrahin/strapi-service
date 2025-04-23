@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_41s",
+  "info": {
+    "singularName": "team-41",
+    "pluralName": "team-41s",
+    "displayName": "Team 41",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "team_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "member_41s": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::member-41.member-41",
+      "mappedBy": "team_41_"
+    }
+  }
+}

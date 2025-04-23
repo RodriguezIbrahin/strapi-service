@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "equipo58s",
+  "info": {
+    "singularName": "equipo58",
+    "pluralName": "equipo58s",
+    "displayName": "Equipo_Proyecto_58",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "miembros": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "equipo_proyecto_58"
+    }
+  }
+}
