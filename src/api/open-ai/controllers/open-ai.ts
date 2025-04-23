@@ -118,5 +118,26 @@ export default factories.createCoreController(
         ctx.send({ error: err.message }, 500);
       }
     },
+    async generateImage(ctx) {
+      try {
+        const { prompt, size = "1024x1024", n = 1 } = ctx.request.body;
+
+        if (!prompt) {
+          ctx.send({ error: "Prompt requerido" }, 400);
+          return;
+        }
+
+        const imageResponse = await openai.images.generate({
+          prompt,
+          n,
+          size,
+        });
+
+        ctx.send({ images: imageResponse.data });
+      } catch (err) {
+        strapi.log.error("Error generando imagen:", err);
+        ctx.send({ error: err.message }, 500);
+      }
+    },
   })
 );

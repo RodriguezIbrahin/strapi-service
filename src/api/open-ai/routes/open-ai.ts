@@ -19,5 +19,14 @@ export default {
       handler: "open-ai.findOne",
       config: { auth: false },
     },
+    {
+      method: "POST",
+      path: "/open-ai/image/:projectId",
+      handler: "open-ai.generateImage",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };
