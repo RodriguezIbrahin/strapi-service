@@ -4,4 +4,6 @@ export default ({ env }) => ({
   app: {
     keys: env.array("APP_KEYS"),
   },
+  url: "https://strapi.useteam.io",
+  allowedHosts: ["strapi.useteam.io"],
 });
