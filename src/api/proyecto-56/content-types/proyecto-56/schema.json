@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proyecto_56s",
+  "info": {
+    "singularName": "proyecto-56",
+    "pluralName": "proyecto-56s",
+    "displayName": "Proyecto_56",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "Fechas": {
+      "type": "datetime"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "activo",
+        "pausado",
+        "completado",
+        "borrador",
+        "programado",
+        "enviado"
+      ]
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "proyecto_56s"
+    },
+    "asunto": {
+      "type": "string"
+    },
+    "contenidoHTML": {
+      "type": "blocks"
+    },
+    "gruposdecontactosJSON": {
+      "type": "json"
+    },
+    "contactos": {
+      "type": "string"
+    },
+    "campanaJSON": {
+      "type": "json"
+    },
+    "interaccion_destinatario": {
+      "type": "json"
+    },
+    "se_registro_en_pagina": {
+      "type": "boolean"
+    },
+    "dinero_gastado": {
+      "type": "string"
+    },
+    "email_destinatario": {
+      "type": "json"
+    }
+  }
+}

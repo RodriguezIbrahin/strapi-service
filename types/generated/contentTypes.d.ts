@@ -496,6 +496,52 @@ export interface ApiOpenAiOpenAi extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProyecto56Proyecto56 extends Struct.CollectionTypeSchema {
+  collectionName: 'proyecto_56s';
+  info: {
+    description: '';
+    displayName: 'Proyecto_56';
+    pluralName: 'proyecto-56s';
+    singularName: 'proyecto-56';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    asunto: Schema.Attribute.String;
+    campanaJSON: Schema.Attribute.JSON;
+    contactos: Schema.Attribute.String;
+    contenidoHTML: Schema.Attribute.Blocks;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dinero_gastado: Schema.Attribute.String;
+    email_destinatario: Schema.Attribute.JSON;
+    estado: Schema.Attribute.Enumeration<
+      ['activo', 'pausado', 'completado', 'borrador', 'programado', 'enviado']
+    >;
+    Fechas: Schema.Attribute.DateTime;
+    gruposdecontactosJSON: Schema.Attribute.JSON;
+    interaccion_destinatario: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::proyecto-56.proyecto-56'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    se_registro_en_pagina: Schema.Attribute.Boolean;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    usuario: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiTask41Task41 extends Struct.CollectionTypeSchema {
   collectionName: 'task_41s';
   info: {
@@ -1063,6 +1109,10 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     provider: Schema.Attribute.String;
+    proyecto_56s: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::proyecto-56.proyecto-56'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     rol: Schema.Attribute.String & Schema.Attribute.DefaultTo<'user'>;
@@ -1098,6 +1148,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::member-41.member-41': ApiMember41Member41;
       'api::open-ai.open-ai': ApiOpenAiOpenAi;
+      'api::proyecto-56.proyecto-56': ApiProyecto56Proyecto56;
       'api::task-41.task-41': ApiTask41Task41;
       'api::team-41.team-41': ApiTeam41Team41;
       'plugin::content-releases.release': PluginContentReleasesRelease;

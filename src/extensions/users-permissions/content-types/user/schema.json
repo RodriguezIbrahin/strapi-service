@@ -104,6 +104,12 @@
       "relation": "manyToOne",
       "target": "api::equipo58.equipo58",
       "inversedBy": "miembros"
+    },
+    "proyecto_56s": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::proyecto-56.proyecto-56",
+      "mappedBy": "usuario"
     }
   }
 }
